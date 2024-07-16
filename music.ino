@@ -1,10 +1,18 @@
 #include "pitches.h"
 int buzzerPin = 8;
 int buttonPin = 9;
+int cPin = 10;
+int dPin = 11;
+int ePin = 12;
+int fPin = 13;
 
 void setup() {
   // put your setup code here, to run once:
   pinMode(buttonPin, INPUT_PULLUP);
+  pinMode(cPin, INPUT_PULLUP);
+  pinMode(dPin, INPUT_PULLUP);
+  pinMode(ePin, INPUT_PULLUP);
+  pinMode(fPin, INPUT_PULLUP);
   Serial.begin(9600);
 }
 
@@ -15,84 +23,291 @@ int twinkle[] = {
 };
 
 int mario[] = {
-  NOTE_E5, NOTE_E5, false, NOTE_E5, false, NOTE_C5, NOTE_E5,
-  NOTE_G5, false, NOTE_G4, false,
-  NOTE_C5, NOTE_G4, false, NOTE_E4,
-  NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4,
-  NOTE_G4, NOTE_E5, NOTE_G5, NOTE_A5, NOTE_F5, NOTE_G5,
-  false, NOTE_E5, NOTE_C5, NOTE_D5, NOTE_B4,
-  NOTE_C5, NOTE_G4, false, NOTE_E4,
-  NOTE_A4, NOTE_B4, NOTE_AS4, NOTE_A4,
-  NOTE_G4, NOTE_E5, NOTE_G5, NOTE_A5, NOTE_F5, NOTE_G5,
-  false, NOTE_E5, NOTE_C5, NOTE_D5, NOTE_B4,
-
-  false, NOTE_G5, NOTE_FS5, NOTE_F5, NOTE_DS5, NOTE_E5,
-  false, NOTE_GS4, NOTE_A4, NOTE_C4, false, NOTE_A4, NOTE_C5, NOTE_D5,
-  false, NOTE_DS5, false, NOTE_D5,
-  NOTE_C5, false,
-
-  false, NOTE_G5, NOTE_FS5, NOTE_F5, NOTE_DS5, NOTE_E5,
-  false, NOTE_GS4, NOTE_A4, NOTE_C4, false, NOTE_A4, NOTE_C5, NOTE_D5,
-  false, NOTE_DS5, false, NOTE_D5,
-  NOTE_C5, false,
-
-  NOTE_C5, NOTE_C5, NOTE_C5, false, NOTE_C5, NOTE_D5,
-  NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
-
-  NOTE_C5, NOTE_C5, NOTE_C5, false, NOTE_C5, NOTE_D5, NOTE_E5,
+  NOTE_E5,
+  NOTE_E5,
   false,
-  NOTE_C5, NOTE_C5, NOTE_C5, false, NOTE_C5, NOTE_D5,
-  NOTE_E5, NOTE_C5, NOTE_A4, NOTE_G4,
-  NOTE_E5, NOTE_E5, false, NOTE_E5, false, NOTE_C5, NOTE_E5,
-  NOTE_G5, false, NOTE_G4, false,
+  NOTE_E5,
+  false,
+  NOTE_C5,
+  NOTE_E5,
+  NOTE_G5,
+  false,
+  NOTE_G4,
+  false,
+  NOTE_C5,
+  NOTE_G4,
+  false,
+  NOTE_E4,
+  NOTE_A4,
+  NOTE_B4,
+  NOTE_AS4,
+  NOTE_A4,
+  NOTE_G4,
+  NOTE_E5,
+  NOTE_G5,
+  NOTE_A5,
+  NOTE_F5,
+  NOTE_G5,
+  false,
+  NOTE_E5,
+  NOTE_C5,
+  NOTE_D5,
+  NOTE_B4,
+  NOTE_C5,
+  NOTE_G4,
+  false,
+  NOTE_E4,
+  NOTE_A4,
+  NOTE_B4,
+  NOTE_AS4,
+  NOTE_A4,
+  NOTE_G4,
+  NOTE_E5,
+  NOTE_G5,
+  NOTE_A5,
+  NOTE_F5,
+  NOTE_G5,
+  false,
+  NOTE_E5,
+  NOTE_C5,
+  NOTE_D5,
+  NOTE_B4,
+
+  false,
+  NOTE_G5,
+  NOTE_FS5,
+  NOTE_F5,
+  NOTE_DS5,
+  NOTE_E5,
+  false,
+  NOTE_GS4,
+  NOTE_A4,
+  NOTE_C4,
+  false,
+  NOTE_A4,
+  NOTE_C5,
+  NOTE_D5,
+  false,
+  NOTE_DS5,
+  false,
+  NOTE_D5,
+  NOTE_C5,
+  false,
+
+  false,
+  NOTE_G5,
+  NOTE_FS5,
+  NOTE_F5,
+  NOTE_DS5,
+  NOTE_E5,
+  false,
+  NOTE_GS4,
+  NOTE_A4,
+  NOTE_C4,
+  false,
+  NOTE_A4,
+  NOTE_C5,
+  NOTE_D5,
+  false,
+  NOTE_DS5,
+  false,
+  NOTE_D5,
+  NOTE_C5,
+  false,
+
+  NOTE_C5,
+  NOTE_C5,
+  NOTE_C5,
+  false,
+  NOTE_C5,
+  NOTE_D5,
+  NOTE_E5,
+  NOTE_C5,
+  NOTE_A4,
+  NOTE_G4,
+
+  NOTE_C5,
+  NOTE_C5,
+  NOTE_C5,
+  false,
+  NOTE_C5,
+  NOTE_D5,
+  NOTE_E5,
+  false,
+  NOTE_C5,
+  NOTE_C5,
+  NOTE_C5,
+  false,
+  NOTE_C5,
+  NOTE_D5,
+  NOTE_E5,
+  NOTE_C5,
+  NOTE_A4,
+  NOTE_G4,
+  NOTE_E5,
+  NOTE_E5,
+  false,
+  NOTE_E5,
+  false,
+  NOTE_C5,
+  NOTE_E5,
+  NOTE_G5,
+  false,
+  NOTE_G4,
+  false,
 };
 
 int marioDurations[] = {
-  8, 8, 8, 8, 8, 8, 8,
-  4, 4, 8, 4,
-  4, 8, 4, 4,
-  4, 4, 8, 4,
-  8, 8, 8, 4, 8, 8,
-  8, 4, 8, 8, 4,
-  4, 8, 4, 4,
-  4, 4, 8, 4,
-  8, 8, 8, 4, 8, 8,
-  8, 4, 8, 8, 4,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  4,
+  4,
+  8,
+  4,
+  4,
+  8,
+  4,
+  4,
+  4,
+  4,
+  8,
+  4,
+  8,
+  8,
+  8,
+  4,
+  8,
+  8,
+  8,
+  4,
+  8,
+  8,
+  4,
+  4,
+  8,
+  4,
+  4,
+  4,
+  4,
+  8,
+  4,
+  8,
+  8,
+  8,
+  4,
+  8,
+  8,
+  8,
+  4,
+  8,
+  8,
+  4,
 
 
-  4, 8, 8, 8, 4, 8,
-  8, 8, 8, 8, 8, 8, 8, 8,
-  4, 4, 8, 4,
-  2, 2,
+  4,
+  8,
+  8,
+  8,
+  4,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  4,
+  4,
+  8,
+  4,
+  2,
+  2,
 
-  4, 8, 8, 8, 4, 8,
-  8, 8, 8, 8, 8, 8, 8, 8,
-  4, 4, 8, 4,
-  2, 2,
+  4,
+  8,
+  8,
+  8,
+  4,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  4,
+  4,
+  8,
+  4,
+  2,
+  2,
 
-  8, 4, 8, 8, 8, 4,
-  8, 4, 8, 2,
+  8,
+  4,
+  8,
+  8,
+  8,
+  4,
+  8,
+  4,
+  8,
+  2,
 
-  8, 4, 8, 8, 8, 8, 8,
+  8,
+  4,
+  8,
+  8,
+  8,
+  8,
+  8,
   1,
-  8, 4, 8, 8, 8, 4,
-  8, 4, 8, 2,
-  8, 8, 8, 8, 8, 8, 4,
-  4, 4, 4, 4,
-  4, 8, 4, 4,
+  8,
+  4,
+  8,
+  8,
+  8,
+  4,
+  8,
+  4,
+  8,
+  2,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  4,
+  4,
+  4,
+  4,
+  4,
+  4,
+  8,
+  4,
+  4,
 };
 
 int harry[] = {
   false, NOTE_D4,
   NOTE_G4, NOTE_AS4, NOTE_A4,
   NOTE_G4, NOTE_D5,
-  NOTE_C5, 
+  NOTE_C5,
   NOTE_A4,
   NOTE_G4, NOTE_AS4, NOTE_A4,
   NOTE_F4, NOTE_GS4,
-  NOTE_D4, 
   NOTE_D4,
-  
+  NOTE_D4,
+
   NOTE_G4, NOTE_AS4, NOTE_A4,
   NOTE_G4, NOTE_D5,
   NOTE_F5, NOTE_E5,
@@ -101,16 +316,16 @@ int harry[] = {
   NOTE_CS4, NOTE_B4,
   NOTE_G4,
   NOTE_AS4,
-   
+
   NOTE_D5, NOTE_AS4,
   NOTE_D5, NOTE_AS4,
   NOTE_DS5, NOTE_D5,
   NOTE_CS5, NOTE_A4,
   NOTE_AS4, NOTE_D5, NOTE_CS5,
   NOTE_CS4, NOTE_D4,
-  NOTE_D5, 
-  false, NOTE_AS4,  
-  
+  NOTE_D5,
+  false, NOTE_AS4,
+
   NOTE_D5, NOTE_AS4,
   NOTE_D5, NOTE_AS4,
   NOTE_F5, NOTE_E5,
@@ -124,13 +339,13 @@ int harryDurations[] = {
   2, 4,
   4, 8, 4,
   2, 4,
-  2, 
+  2,
   2,
   4, 8, 4,
   2, 4,
-  1, 
+  1,
   4,
-  
+
   4, 8, 4,
   2, 4,
   2, 4,
@@ -139,16 +354,16 @@ int harryDurations[] = {
   2, 4,
   1,
   4,
-   
+
   2, 4,
   2, 4,
   2, 4,
   2, 4,
   4, 8, 4,
   2, 4,
-  1, 
-  4, 4,  
-  
+  1,
+  4, 4,
+
   2, 4,
   2, 4,
   2, 4,
@@ -203,8 +418,8 @@ int starwarsDurations[] = {
 };
 
 int nokia[] = {
-  NOTE_E5, NOTE_D5, NOTE_FS4, NOTE_GS4, 
-  NOTE_CS5, NOTE_B4, NOTE_D4, NOTE_E4, 
+  NOTE_E5, NOTE_D5, NOTE_FS4, NOTE_GS4,
+  NOTE_CS5, NOTE_B4, NOTE_D4, NOTE_E4,
   NOTE_B4, NOTE_A4, NOTE_CS4, NOTE_E4,
   NOTE_A4
 };
@@ -218,7 +433,7 @@ int nokiaDurations[] = {
 
 int godfather[] = {
   false, false, false, false, NOTE_E4, NOTE_A4, NOTE_C5,
-  
+
   NOTE_B4, NOTE_A4, NOTE_C5, NOTE_A4, NOTE_B4, NOTE_A4, NOTE_F4, NOTE_G4,
   NOTE_E4, NOTE_E4, NOTE_A4, NOTE_C5,
   NOTE_B4, NOTE_A4, NOTE_C5, NOTE_A4, NOTE_C5, NOTE_A4, NOTE_E4, NOTE_DS4,
@@ -237,22 +452,79 @@ int godfather[] = {
 };
 
 int godfatherDurations[] = {
-  4, 8, 8, 8, 8, 8, 8,
-  8, 8, 8, 8, 8, 8, 8, 8,
-  2, 8, 8, 8,
-  8, 8, 8, 8, 8, 8, 8, 8,
+  4,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  2,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
 
-  2, 8, 8, 8,
-  2, 8, 8, 8,
-  2, 8, 8, 8,
-  8, 8, 8, 8, 8, 8, 8, 8,
+  2,
+  8,
+  8,
+  8,
+  2,
+  8,
+  8,
+  8,
+  2,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
 
-  2, 8, 8, 8, 8,
-  2, 8, 8, 8,
-  2, 8, 8, 8,
-  2, 8, 8, 8, 8,
+  2,
+  8,
+  8,
+  8,
+  8,
+  2,
+  8,
+  8,
+  8,
+  2,
+  8,
+  8,
+  8,
+  2,
+  8,
+  8,
+  8,
+  8,
 
-  2, 8, 8, 8, 8,
+  2,
+  8,
+  8,
+  8,
+  8,
 };
 
 int randNumber = random(6);
@@ -272,6 +544,14 @@ void playSong(int song[], int songDurations[], int length) {
     }
   }
 }
+
+int recordedArr[16];
+
+for (int i = 0; i < 16; i++) {
+  recordedArr[i] = 0;
+}
+
+bool recording = false;
 int empty[1] = { 0 };
 void loop() {
   // put your main code here, to run repeatedly:
@@ -281,28 +561,42 @@ void loop() {
     if (randNumber == 0) {
       Serial.println("Twinkle");
       playSong(twinkle, empty, (sizeof(twinkle)) / (sizeof(twinkle[0])));
-    } else if(randNumber == 4) {
+    } else if (randNumber == 4) {
       Serial.println("Mario");
       playSong(mario, marioDurations, (sizeof(mario)) / (sizeof(mario[0])));
     } else if (randNumber == 2) {
       Serial.println("Harry");
       playSong(harry, harryDurations, (sizeof(harry)) / (sizeof(harry[0])));
-    } else if(randNumber == 3){
+    } else if (randNumber == 3) {
       Serial.println("Star Wars");
       playSong(starwars, starwarsDurations, (sizeof(starwars)) / (sizeof(starwars[0])));
-    }else if(randNumber == 1){
+    } else if (randNumber == 1) {
       Serial.println("Nokia");
       playSong(nokia, nokiaDurations, (sizeof(nokia)) / (sizeof(nokia[0])));
-    }else if(randNumber == 5){
+    } else if (randNumber == 5) {
       Serial.println("Godfather");
       playSong(godfather, godfatherDurations, (sizeof(godfather)) / (sizeof(godfather[0])));
     }
     int newRandNumber = random(6);
-    while(newRandNumber == randNumber){
+    while (newRandNumber == randNumber) {
       newRandNumber = random(6);
     }
     randNumber = newRandNumber;
     delay(2000);
     pressed = false;
+  } else if (digitalRead(cPin) == LOW) {
+    tone(buzzerPin, NOTE_C4, 500);
+    delay(500);
+  } else if (digitalRead(dPin) == LOW) {
+    tone(buzzerPin, NOTE_D4, 500);
+    delay(500);
+  } else if (digitalRead(ePin) == LOW) {
+    if(recording){
+
+    }
+    tone(buzzerPin, NOTE_E4, 500);
+    delay(500);
+  } else if (digitalRead(fPin) == LOW) {
+    recording = !recording;
   }
 }
