@@ -545,11 +545,7 @@ void playSong(int song[], int songDurations[], int length) {
   }
 }
 
-int recordedArr[16];
-
-for (int i = 0; i < 16; i++) {
-  recordedArr[i] = 0;
-}
+int recordedArr[32] = {-10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10, -10};
 
 bool recording = false;
 int empty[1] = { 0 };
@@ -585,18 +581,78 @@ void loop() {
     delay(2000);
     pressed = false;
   } else if (digitalRead(cPin) == LOW) {
+    if (recording) {
+      int emptyIndex = -1;  // Initialize the empty index variable
+
+      // Find the first empty index in the array
+      for (int i = 0; i < sizeof(recordedArr) / sizeof(recordedArr[0]); i++) {
+        if (recordedArr[i] == -10) {
+          emptyIndex = i;
+          recordedArr[i] = NOTE_C4;
+          break;
+        }
+      }
+      if (emptyIndex == -1) {
+        playSong(recordedArr, empty, (sizeof(recordedArr)) / (sizeof(recordedArr[0])));
+      }
+    }
     tone(buzzerPin, NOTE_C4, 500);
     delay(500);
   } else if (digitalRead(dPin) == LOW) {
+    if (recording) {
+      int emptyIndex = -1;  // Initialize the empty index variable
+
+      // Find the first empty index in the array
+      for (int i = 0; i < sizeof(recordedArr) / sizeof(recordedArr[0]); i++) {
+        if (recordedArr[i] == -10) {
+          emptyIndex = i;
+          recordedArr[i] = NOTE_D4;
+          break;
+        }
+      }
+      if (emptyIndex == -1) {
+        playSong(recordedArr, empty, (sizeof(recordedArr)) / (sizeof(recordedArr[0])));
+      }
+    }
     tone(buzzerPin, NOTE_D4, 500);
     delay(500);
   } else if (digitalRead(ePin) == LOW) {
-    if(recording){
+    if (recording) {
+      int emptyIndex = -1;  // Initialize the empty index variable
 
+      // Find the first empty index in the array
+      for (int i = 0; i < sizeof(recordedArr) / sizeof(recordedArr[0]); i++) {
+        if (recordedArr[i] == -10) {
+          emptyIndex = i;
+          recordedArr[i] = NOTE_E4;
+          break;
+        }
+      }
+      if (emptyIndex == -1) {
+        playSong(recordedArr, empty, (sizeof(recordedArr)) / (sizeof(recordedArr[0])));
+      }
     }
     tone(buzzerPin, NOTE_E4, 500);
     delay(500);
   } else if (digitalRead(fPin) == LOW) {
-    recording = !recording;
+    if(recording){
+      int emptyIndex = -1;  // Initialize the empty index variable
+
+      // Find the first empty index in the array
+      for (int i = 0; i < sizeof(recordedArr) / sizeof(recordedArr[0]); i++) {
+        Serial.println(recordedArr[i]);
+        if (recordedArr[i] == -10) {
+          emptyIndex = i;
+          recordedArr[i] = false;
+          break;
+        }
+      }
+      if (emptyIndex == -1) {
+        playSong(recordedArr, empty, (sizeof(recordedArr)) / (sizeof(recordedArr[0])));
+      }
+    } else {
+      recording = true;
+    }
+    delay(500);
   }
 }
